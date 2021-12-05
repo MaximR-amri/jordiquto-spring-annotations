@@ -1,26 +1,23 @@
 package be.syntra.cowsay;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+@Component
 public class QuoteDaoMysql implements QuoteDao {
-    private static String url;
-    private static String usr;
-    private static String pass;
+    @Value("${db.url}")
+    private String url;
+    @Value("${db.usr}")
+    private String usr;
+    @Value("${db.pass}")
+    private String pass;
 
-    static {
-        try (InputStream in = QuoteDaoMysql.class.getResourceAsStream("/app.properties")) {
-            Properties properties = new Properties();
-            properties.load(in);
-            url = properties.getProperty("url");
-            usr = properties.getProperty("usr");
-            pass = properties.getProperty("pass");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public Quote getRandomQuote() {

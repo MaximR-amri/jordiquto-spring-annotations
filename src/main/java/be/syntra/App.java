@@ -1,9 +1,14 @@
 package be.syntra;
 
 import be.syntra.cowsay.*;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.Scanner;
 
+@ComponentScan()
+@PropertySource("classpath:app.properties")
 public class App {
 
   public static void main(String[] args) {
@@ -13,9 +18,9 @@ public class App {
      * concrete dependencies to objects
      */
 
-    CowSay cowSay = new DragonCowSay();
-    QuoteDao quoteDao = new QuoteDaoMysql();
-    cowSay.setQuoteDao(quoteDao);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(App.class);
+
+    CowSay cowSay = context.getBean("cowSay", CowSay.class);
     cowSay.showQuote();
 
     Scanner in = new Scanner(System.in);
@@ -32,5 +37,6 @@ public class App {
         System.out.println("Please enter y/n");
       }
     }
+    context.close();
   }
 }

@@ -1,5 +1,7 @@
 package be.syntra.cowsay;
 
+import org.springframework.stereotype.Component;
+
 public class QuoteDaoDummy implements QuoteDao {
     @Override
     public Quote getRandomQuote() {

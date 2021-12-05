@@ -1,11 +1,14 @@
 package be.syntra.cowsay;
 import com.github.ricksbrown.cowsay.Cowsay;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 public class OriginalCowSay implements CowSay {
     QuoteDao quoteDao;
     Quote quote;
 
-    public void setQuoteDao(QuoteDao quoteDao) {
+    public OriginalCowSay(QuoteDao quoteDao) {
         this.quoteDao = quoteDao;
     }
 
